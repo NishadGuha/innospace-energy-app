@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import deviceList from '../consts/deviceList'
 
-export default function Info({ navigation, route }) {
+export default function Info({ navigation }) {
 
-    const device = deviceList.find(x => x.id == 'f625e473-1a69-4e80-86c3-757380c7023b');
+    const device = deviceList.find(x => x.id == navigation.state.params.device);
 
     let deviceData = [];
     Object.keys(device).forEach(x => {

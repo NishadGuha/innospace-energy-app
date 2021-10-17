@@ -11,26 +11,25 @@ export default function Devices({ navigation}) {
 
     return (
         <View>
-            <Card>
-            <Card.Title>List of devices</Card.Title>
-            <Card.Divider/>
-            {
-                deviceList.map((u, i) => {
+        {
+            deviceList.map((u, i) => {
                 return (
-                    <TouchableOpacity onPress={formNavigator(u.id)}>
-                    <View key={i} style={styles.device}>
-                    <Text style={styles.name}>{u.name}</Text>
-                    <Image
-                        style={styles.image}
-                        resizeMode="cover"
-                        source={{ uri: u.avatar }}
-                    />
-                    </View>
+                <Card key={i}>
+                <Card.Title>{u.name}</Card.Title>
+                <Card.Divider/>
+                    <TouchableOpacity onPress={() => formNavigator(u.id)}>
+                        <View key={i} style={styles.device}>
+                            <Image
+                                style={styles.image}
+                                resizeMode="cover"
+                                source={{ uri: u.avatar }}
+                            />
+                        </View>
                     </TouchableOpacity>
-                );
-                })
-            }
-            </Card>
+                </Card>
+                )
+            })
+        }
         </View>
     )
 }
