@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, TouchableOpacity, Dimensions } from 'react-native'
+import { Card } from 'react-native-elements'
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import {
     LineChart,
@@ -8,69 +9,85 @@ import {
     ProgressChart,
     ContributionGraph,
     StackedBarChart
-  } from "react-native-chart-kit";
+} from "react-native-chart-kit";
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 export default function Home({ navigation}) {
 
-    const pressHandler = () => {
+    const pressHandlerDevices = () => {
         navigation.navigate('Devices')
     }
 
+    const pressHandlerSettings = () => {
+        navigation.navigate('Settings')
+    }
+    
     return (
+        <LinearGradient
+            colors={['#7F7FD5', '#86A8E7', '#91EAE4']}
+            start={{x: 0, y: 0.5}}
+            end={{x: 1, y: 1}}
+            style={styles.gradient}
+        >
         <View style={styles.container}>
             <Text style={styles.text}>Smart Home Energy Manager</Text>
-            <LineChart
-                data={{
-                labels: ["January", "February", "March", "April", "May", "June"],
-                datasets: [
-                    {
-                    data: [
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100
+            <Card style={{flex: 1, width: 100}}>
+            <Card.Title>Overall Energy Usage in the last six months</Card.Title>
+            <Card.Divider/>
+                <LineChart
+                    data={{
+                    labels: ["January", "February", "March", "April", "May", "June"],
+                    datasets: [
+                        {
+                        data: [
+                            Math.random() * 100,
+                            Math.random() * 100,
+                            Math.random() * 100,
+                            Math.random() * 100,
+                            Math.random() * 100,
+                            Math.random() * 100
+                        ]
+                        }
                     ]
+                    }}
+                    width={313} // from react-native
+                    height={220}
+                    yAxisLabel="$"
+                    yAxisSuffix="k"
+                    yAxisInterval={1} // optional, defaults to 1
+                    chartConfig={{
+                    backgroundColor: "#D9AFD9",
+                    backgroundGradientFrom: "#D9AFD9",
+                    backgroundGradientTo: "#97D9E1",
+                    decimalPlaces: 2, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    style: {
+                        borderRadius: 16
+                    },
+                    propsForDots: {
+                        r: "6",
+                        strokeWidth: "2",
+                        stroke: "#ffa726"
                     }
-                ]
-                }}
-                width={Dimensions.get("window").width} // from react-native
-                height={220}
-                yAxisLabel="$"
-                yAxisSuffix="k"
-                yAxisInterval={1} // optional, defaults to 1
-                chartConfig={{
-                backgroundColor: "#D9AFD9",
-                backgroundGradientFrom: "#D9AFD9",
-                backgroundGradientTo: "#97D9E1",
-                decimalPlaces: 2, // optional, defaults to 2dp
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                style: {
+                    }}
+                    bezier
+                    style={{
+                    marginVertical: 8,
                     borderRadius: 16
-                },
-                propsForDots: {
-                    r: "6",
-                    strokeWidth: "2",
-                    stroke: "#ffa726"
-                }
-                }}
-                bezier
-                style={{
-                marginVertical: 8,
-                borderRadius: 16
-                }}
-            />
+                    }}
+                />
+            </Card>
             <View style={styles.view}>
-                <TouchableOpacity style={styles.button} onPress={pressHandler}>
+                <TouchableOpacity style={styles.button} onPress={pressHandlerDevices}>
                 <FontAwesome
                     name={"laptop"}
                     size={30}
                     color="#000000" 
                 />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={pressHandler}>
+                <TouchableOpacity style={styles.button} onPress={pressHandlerSettings}>
                 <FontAwesome
                     name={"gear"}
                     size={30}
@@ -79,15 +96,18 @@ export default function Home({ navigation}) {
                 </TouchableOpacity>
             </View>
         </View>
+        </LinearGradient>
     )
 }
 
 // width: parent.width
 const styles = StyleSheet.create({
     text: {
-        fontSize: 30,
+        fontSize: 25,
         color: '#000',
-        textAlign: 'center'
+        textAlign: 'center',
+        marginTop: 10,
+        fontFamily: 'TrebuchetMS-Bold',
     },
     button: {
         backgroundColor: '#fff',
@@ -99,7 +119,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         position: 'relative',
         flex: 1,
-        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 36
@@ -107,8 +126,13 @@ const styles = StyleSheet.create({
     view: {
         width: parent.width,
         alignItems: 'center',
+        flexDirection: 'row',
     },
     container: {
     },
+    gradient: {
+        width: '100%',
+        height: '100%',
+    }
 })
 

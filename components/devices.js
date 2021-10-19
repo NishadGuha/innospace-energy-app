@@ -2,6 +2,8 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import deviceList from '../consts/deviceList'
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 export default function Devices({ navigation}) {
 
@@ -10,6 +12,12 @@ export default function Devices({ navigation}) {
     }
 
     return (
+        <LinearGradient
+            colors={['#7F7FD5', '#86A8E7', '#91EAE4']}
+            start={{x: 0, y: 0.5}}
+            end={{x: 1, y: 1}}
+            style={styles.gradient}
+        >
         <View>
         {
             deviceList.map((u, i) => {
@@ -31,6 +39,7 @@ export default function Devices({ navigation}) {
             })
         }
         </View>
+        </LinearGradient>
     )
 }
 
@@ -57,4 +66,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 10,
     },
+    gradient: {
+        width: '100%',
+        height: '100%',
+    }
 })
