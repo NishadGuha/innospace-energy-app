@@ -95,6 +95,11 @@ export default function Home({ navigation}) {
                 />
                 </TouchableOpacity>
             </View>
+            <View style={styles.bottomButton}>
+                <TouchableOpacity onPress={pressHandlerSettings}>
+                    <Button title="Log usage"/>
+                </TouchableOpacity>
+            </View>
         </View>
         </LinearGradient>
     )
@@ -133,6 +138,13 @@ const styles = StyleSheet.create({
     gradient: {
         width: '100%',
         height: '100%',
+    },
+    bottomButton: {
+        width: '100%',
+        justifyContent: 'center', 
+        alignItems: 'center',
+        textAlign: 'center',
+        borderRadius: 50,
     }
 })
 

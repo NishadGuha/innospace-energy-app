@@ -67,8 +67,8 @@ export default function Info({ navigation }) {
                 backgroundGradientFrom: "#fb8c00",
                 backgroundGradientTo: "#ffa726",
                 decimalPlaces: 2, // optional, defaults to 2dp
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                color: (opacity = 10) => `rgba(1, 24, 64, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(73, 116, 191, ${opacity})`,
                 style: {
                     borderRadius: 16,
                     backgroundColor: "#D9AFD9",

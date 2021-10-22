@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 import Navigator from './routes/homeStack';
+
+AppRegistry.registerComponent('native-tabs-js',() => App);
 
 export default function App() {
   return (
