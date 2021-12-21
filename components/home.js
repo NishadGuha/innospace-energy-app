@@ -37,47 +37,62 @@ export default function Home({ navigation}) {
             <Card.Divider/>
                 <LineChart
                     data={{
-                    labels: ["January", "February", "March", "April", "May", "June"],
+                    labels: ["Jan", "Feb", "Mar", "April", "May", "June"],
                     datasets: [
                         {
-                        data: [
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100
-                        ]
+                            data: [
+                                Math.random() * 100,
+                                Math.random() * 100,
+                                Math.random() * 100,
+                                Math.random() * 100,
+                                Math.random() * 100,
+                                Math.random() * 100
+                            ],
+                            strokeWidth: 4,
+                            color: (opacity = 1) => `rgba(255,0,0,${opacity})`,
+                        },
+                        {
+                            data: [
+                                Math.random() * 100,
+                                Math.random() * 100,
+                                Math.random() * 100,
+                                Math.random() * 100,
+                                Math.random() * 100,
+                                Math.random() * 100
+                            ],
+                            strokeWidth: 2,
+                            color: (opacity = 1) => `rgba(0,0,255, ${opacity})`,
                         }
                     ]
                     }}
                     width={313} // from react-native
                     height={220}
-                    yAxisLabel="$"
-                    yAxisSuffix="k"
+                    // yAxisSuffix="kWh"
                     yAxisInterval={1} // optional, defaults to 1
                     chartConfig={{
                     backgroundColor: "#D9AFD9",
                     backgroundGradientFrom: "#D9AFD9",
                     backgroundGradientTo: "#97D9E1",
-                    decimalPlaces: 2, // optional, defaults to 2dp
-                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                    labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    decimalPlaces: 1, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(5, 19, 107, ${opacity})`,
+                    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                     style: {
-                        borderRadius: 16
+                        borderRadius: 0
                     },
                     propsForDots: {
-                        r: "6",
-                        strokeWidth: "2",
+                        r: "3",
+                        strokeWidth: "1",
                         stroke: "#ffa726"
                     }
                     }}
                     bezier
                     style={{
                     marginVertical: 8,
-                    borderRadius: 16
+                    borderRadius: 0,
                     }}
                 />
+                <Card.Divider/>
+                <Card.Title>Energy in kWh</Card.Title>
             </Card>
             <View style={styles.view}>
                 <TouchableOpacity style={styles.button} onPress={pressHandlerDevices}>
