@@ -63,7 +63,6 @@ export default function Home({ navigation}) {
                 labels.push(i);
             }
         }
-        console.log(labels);
         yield* labels;
     }
 

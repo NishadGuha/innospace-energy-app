@@ -12,6 +12,38 @@ export default function Info({ navigation }) {
 
     const [modalVisible, setModalVisible] = useState(false);
 
+    const data_1 = [
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100
+    ];
+
+    function convertToIntArray(data) {
+        var array = [];
+        for (var i = 0; i < data.length; i++) {
+            array.push(parseInt(data[i]));
+        }
+        return array;
+    }
+
+    function* yLabel (data) {
+        var min = Math.min( ...data );
+        var max = Math.max( ...data );
+        var labels = [0];
+
+        for (var i = min; i <= max; i++) {
+            if (i % 10 === 0) {
+                labels.push(i);
+            }
+        }
+        yield* labels;
+    }
+
+    const yLabelIterator = yLabel(convertToIntArray(data_1));
+
     let deviceData = [];
     Object.keys(device).forEach(x => {
         if (x == 'name') {
@@ -36,6 +68,10 @@ export default function Info({ navigation }) {
         }
     });
 
+    const triggerModal = () => {
+        setModalVisible(true)
+    }
+
     return (
         <LinearGradient
             colors={['#ff4b1f', '#1fddff']}
@@ -43,56 +79,50 @@ export default function Info({ navigation }) {
             end={{x: 1, y: 1}}
             style={styles.gradient}
         >
-        <View style={styles.container}>
-            {/* <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                Alert.alert("Modal has been closed.", 5);
+        {/* <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
                 setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Appliance Upgrade Requested!</Text>
-                        <TouchableOpacity
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Ok</Text>
-                        </TouchableOpacity>
-                    </View>
+            }}
+        >
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Appliance Upgrade Requested!</Text>
+                    <TouchableOpacity
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => setModalVisible(!modalVisible)}
+                    >
+                        <Text style={styles.textStyle}>Ok</Text>
+                    </TouchableOpacity>
                 </View>
-            </Modal> */}
+            </View>
+        </Modal> */}
+        <View style={styles.container}>
             <Card style={{flex: 1, width: 100}}>
                 <Card.Title>Usage in the last six months</Card.Title>
                 <Card.Divider/>
                 <LineChart
                     data={{
-                    labels: ["January", "February", "March", "April", "May", "June"],
+                    labels: ["Jan", "Feb", "Mar", "April", "May", "June"],
                     datasets: [
                         {
-                        data: [
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100,
-                            Math.random() * 100
-                        ]
+                            data: data_1,
+                            strokeWidth: 2,
+                            color: (opacity = 1) => `rgba(0,0,255, ${opacity})`,
                         }
                     ]
                     }}
                     width={313} // from react-native
                     height={220}
-                    yAxisSuffix="kWh"
+                    formatYLabel={() => yLabelIterator.next().value}
                     yAxisInterval={1} // optional, defaults to 1
                     chartConfig={{
                     backgroundColor: "#e26a00",
                     backgroundGradientFrom: "#fb8c00",
                     backgroundGradientTo: "#ffa726",
-                    decimalPlaces: 2, // optional, defaults to 2dp
+                    decimalPlaces: 0, // optional, defaults to 2dp
                     color: (opacity = 10) => `rgba(1, 24, 64, ${opacity})`,
                     labelColor: (opacity = 1) => `rgba(73, 116, 191, ${opacity})`,
                     style: {
@@ -118,9 +148,7 @@ export default function Info({ navigation }) {
                     renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
                 />
             </View>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-                <Button style={styles.button} title="Request appliance upgrade"/>
-            </TouchableOpacity>
+            <Button style={styles.button} onPress={triggerModal} title="Request appliance upgrade"/>
         </View>
         </LinearGradient>         
     )
