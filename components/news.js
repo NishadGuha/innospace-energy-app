@@ -1,16 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
-import deviceList from '../consts/deviceList'
+import newsList from '../consts/newsList'
 import { LinearGradient } from 'expo-linear-gradient';
 
-
-export default function Devices({ navigation}) {
-
-    const pressHandlerDeviceInfo = (id) => {
-        navigation.navigate('Info', { device: id })
-    }
-
+export default function news() {
     return (
         <LinearGradient
             colors={['#ff4b1f', '#1fddff']}
@@ -20,12 +14,10 @@ export default function Devices({ navigation}) {
         >
         <View>
         {
-            deviceList.map((u, i) => {
+            newsList.map((u, i) => {
                 return (
                 <Card key={i}>
-                <Card.Title>{u.name}</Card.Title>
-                <Card.Divider/>
-                    <TouchableOpacity onPress={() => pressHandlerDeviceInfo(u.id)}>
+                    <TouchableOpacity onPress={() => alert("Opens News Website!")}>
                         <View key={i} style={styles.device}>
                             <Image
                                 style={styles.image}
@@ -33,6 +25,10 @@ export default function Devices({ navigation}) {
                                 source={{ uri: u.avatar }}
                             />
                         </View>
+                        <Card.Divider/>
+                        <Text>
+                            {u.title}
+                        </Text>
                     </TouchableOpacity>
                 </Card>
                 )
@@ -57,8 +53,8 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     image: {
-        width: 100,
-        height: 100,
+        width: 313,
+        height: 220,
         borderRadius: 10,
     },
     name: {

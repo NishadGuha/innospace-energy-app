@@ -16,19 +16,29 @@ export default function Info({ navigation }) {
     Object.keys(device).forEach(x => {
         if (x == 'name') {
             deviceData.push({
-                key: `Device: ${device[x]}`,
+                key: `${device[x]}`,
             })
         }
         if (x != 'id' && x != 'avatar' && x != 'name') {
-            deviceData.push({
-                key: `The ${x} is ${device[x]}`,
-            })
+            if (x == 'maxPower') {
+                deviceData.push({
+                    key: `You can run this device upto a power of ${device[x]} W`,
+                })
+            } else if (x == 'maxTime') {
+                deviceData.push({
+                    key: `This device can used safely for a constant period of ${device[x]} minutes`,
+                })
+            } else if (x == 'costPerHour') {
+                deviceData.push({
+                    key: `This device costs € ${device[x]} per hour to run`,
+                })
+            }
         }
     });
 
     return (
         <LinearGradient
-            colors={['#7F7FD5', '#86A8E7', '#91EAE4']}
+            colors={['#ff4b1f', '#1fddff']}
             start={{x: 0, y: 0.5}}
             end={{x: 1, y: 1}}
             style={styles.gradient}

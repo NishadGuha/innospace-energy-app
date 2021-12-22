@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, TouchableOpacity, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Button, TouchableOpacity, Dimensions, Image } from 'react-native'
 import { Card } from 'react-native-elements'
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import {
@@ -22,17 +22,80 @@ export default function Home({ navigation}) {
     const pressHandlerSettings = () => {
         navigation.navigate('Settings')
     }
+
+    const pressHandlerNews = () => {
+        navigation.navigate('News')
+    }
+
+    const data_1 = [
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100
+    ];
+
+    const data_2 = [
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100
+    ];
+
+    function convertToIntArray(data) {
+        var array = [];
+        for (var i = 0; i < data.length; i++) {
+            array.push(parseInt(data[i]));
+        }
+        return array;
+    }
+
+    function* yLabel (data) {
+        var min = Math.min( ...data );
+        var max = Math.max( ...data );
+        var labels = [0];
+
+        for (var i = min; i <= max; i++) {
+            if (i % 10 === 0) {
+                labels.push(i);
+            }
+        }
+        console.log(labels);
+        yield* labels;
+    }
+
+    function checkMaxArr(arr_1, arr_2) {
+        var arr_1_parsed = convertToIntArray(arr_1);
+        var arr_2_parsed = convertToIntArray(arr_2);
+        var max = Math.max(...arr_1_parsed);
+        var max2 = Math.max(...arr_2_parsed);
+        if (max > max2) {
+            return arr_1_parsed;
+        } else {
+            return arr_2_parsed;
+        }
+    }
+
+    const yLabelIterator = yLabel(checkMaxArr(data_1, data_2));
     
     return (
         <LinearGradient
-            colors={['#7F7FD5', '#86A8E7', '#91EAE4']}
+            colors={['#ff4b1f', '#1fddff']}
             start={{x: 0, y: 0.5}}
             end={{x: 1, y: 1}}
             style={styles.gradient}
         >
         <View style={styles.container}>
-            <Text style={styles.text}>Smart Home Energy Manager</Text>
-            <Card style={{flex: 1, width: 100}}>
+            {/* <Text style={styles.text}>Smart Home Energy Manager</Text> */}
+            <Image
+                style={styles.image}
+                resizeMode="cover"
+                source={{ uri: "https://images.assetsdelivery.com/compings_v2/amin268/amin2681807/amin268180700301.jpg" }}
+            />
+            <Card style={{flex: 1, width: 100, borderRadius: 10}}>
             <Card.Title>Overall Energy Usage in the last six months</Card.Title>
             <Card.Divider/>
                 <LineChart
@@ -40,26 +103,12 @@ export default function Home({ navigation}) {
                     labels: ["Jan", "Feb", "Mar", "April", "May", "June"],
                     datasets: [
                         {
-                            data: [
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100
-                            ],
+                            data: data_1,
                             strokeWidth: 4,
                             color: (opacity = 1) => `rgba(255,0,0,${opacity})`,
                         },
                         {
-                            data: [
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100
-                            ],
+                            data: data_2,
                             strokeWidth: 2,
                             color: (opacity = 1) => `rgba(0,0,255, ${opacity})`,
                         }
@@ -67,13 +116,13 @@ export default function Home({ navigation}) {
                     }}
                     width={313} // from react-native
                     height={220}
-                    // yAxisSuffix="kWh"
-                    yAxisInterval={1} // optional, defaults to 1
+                    formatYLabel={() => yLabelIterator.next().value}
+                    yAxisInterval={10} // optional, defaults to 1
                     chartConfig={{
                     backgroundColor: "#D9AFD9",
                     backgroundGradientFrom: "#D9AFD9",
                     backgroundGradientTo: "#97D9E1",
-                    decimalPlaces: 1, // optional, defaults to 2dp
+                    decimalPlaces: 0, // optional, defaults to 2dp
                     color: (opacity = 1) => `rgba(5, 19, 107, ${opacity})`,
                     labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                     style: {
@@ -92,12 +141,23 @@ export default function Home({ navigation}) {
                     }}
                 />
                 <Card.Divider/>
-                <Card.Title>Energy in kWh</Card.Title>
+                <View style={styles.legend}>
+                    <Card.Title>Energy in kWh</Card.Title>  
+                    <View style={styles.legend_item1}></View><Text style={styles.legend_text}>Average</Text>
+                    <View style={styles.legend_item2}></View><Text style={styles.legend_text}>Current</Text>
+                </View>
             </Card>
             <View style={styles.view}>
                 <TouchableOpacity style={styles.button} onPress={pressHandlerDevices}>
                 <FontAwesome
-                    name={"laptop"}
+                    name={"plug"}
+                    size={30}
+                    color="#000000" 
+                />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={pressHandlerNews}>
+                <FontAwesome
+                    name={"th-list"}
                     size={30}
                     color="#000000" 
                 />
@@ -149,6 +209,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     container: {
+        justifyContent: 'center', 
+        alignItems: 'center',
     },
     gradient: {
         width: '100%',
@@ -160,6 +222,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center',
         borderRadius: 50,
+    },
+    image: {
+        width: 100,
+        height: 100,
+        borderRadius: 10,
+        justifyContent: 'center', 
+        alignItems: 'center',
+        position: 'relative',
+        textAlign: 'center',
+    },
+    legend: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    legend_item1: {
+        width: 20,
+        height: 10,
+        backgroundColor: 'red',
+    },
+    legend_item2: {
+        width: 20,
+        height: 10,
+        backgroundColor: 'blue',
     }
 })
 
