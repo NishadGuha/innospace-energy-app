@@ -24,7 +24,7 @@ const screens = {
     News: {
         screen: News,
     },
-    Form: {
+    Log_Usage: {
         screen: Form,
     },
 }

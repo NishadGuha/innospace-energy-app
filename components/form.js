@@ -1,68 +1,72 @@
-import React from 'react'
-import { StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
-import ReactDOM from "react-dom"
-import { useForm, Controller } from "react-hook-form";
-import { LinearGradient } from 'expo-linear-gradient'
+import React, { useState } from 'react';
+import { StyleSheet, Switch, Text, View } from 'react-native';
+import { t, color } from 'react-native-tailwindcss';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useForm, Controller } from 'react-hook-form';
 
-export default function form() {
+import Input from './input';
+import Button from './button';
 
-    const { control, handleSubmit, formState: { errors } } = useForm({
-        defaultValues: {
-            firstName: '',
-            lastName: ''
-        }
-    });
-      
-    const onSubmit = data => console.log(data);
+export default function App() {
 
-    return (
-        <LinearGradient
-            colors={['#ff4b1f', '#1fddff']}
-            start={{x: 0, y: 0.5}}
-            end={{x: 1, y: 1}}
-            style={styles.gradient}
-        >
-        <View style={styles.container}> 
-            <Controller
-                control={control}
-                rules={{
-                required: true,
-            }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                        style={styles.input}
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                    />
-                )}  
-                name="firstName"
-            />
-            {errors.firstName && <Text>This is required.</Text>}
-            <Controller
-                control={control}
-                rules={{
-                maxLength: 100,
-            }}
-             render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                    style={styles.input}
-                    onBlur={onBlur}
-                    onChangeText={onChange}
+  const { handleSubmit, control } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data, 'data');
+  };
+
+  return (
+    <LinearGradient
+        colors={['#ff4b1f', '#1fddff']}
+        start={{x: 0, y: 0.5}}
+        end={{x: 1, y: 1}}
+        style={styles.gradient}
+    >
+    <View style={styles.container}> 
+        <Controller
+            name="house"
+            defaultValue=""
+            control={control}
+            render={({ onChange, value }) => (
+                <Input
+                    onChangeText={(text) => onChange(text)}
                     value={value}
+                    placeholder="House Number"
                 />
             )}
-            name="lastName"
-            />
-            <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-        </View>
-        </LinearGradient>
-    )
+        />
+        <Controller
+            name="device"
+            defaultValue=""
+            control={control}
+            render={({ onChange, value }) => (
+                <Input
+                    onChangeText={(text) => onChange(text)}
+                    value={value}
+                    placeholder="Device"
+                />
+            )}
+        />
+        <Controller
+            name="duration"
+            defaultValue=""
+            control={control}
+            render={({ onChange, value }) => (
+                <Input
+                    onChangeText={(text) => onChange(text)}
+                    value={value}
+                    placeholder="Duration (in minutes)"
+                />
+            )}
+        />
+        <Button onPress={handleSubmit(onSubmit)} label="Submit" />
+    </View>
+    </LinearGradient>
+  );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 22
-    },
-})
+const styles = {
+  container: [t.flex1, t.justifyCenter, t.itemsCenter, t.p6, t.bgGray200],
+  switch: [t.mB4, t.selfStart, t.flexRow, t.itemsCenter],
+  switchText: [t.textBase, t.mR3, t.textGray800]
+};

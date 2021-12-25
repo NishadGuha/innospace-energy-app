@@ -28,8 +28,7 @@ export default function Home({ navigation}) {
     }
 
     const pressHandlerUsageLog = () => {
-        console.log('Usage Log')
-        navigation.navigate('Form')
+        navigation.navigate('Log_Usage')
     }
 
     const data_1 = [
