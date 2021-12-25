@@ -19,12 +19,33 @@ export default function Info({ navigation }) {
         Math.random() * 100
     ];
 
+    const data_2 = [
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100,
+        Math.random() * 100
+    ];
+
     function convertToIntArray(data) {
         var array = [];
         for (var i = 0; i < data.length; i++) {
             array.push(parseInt(data[i]));
         }
         return array;
+    }
+
+    function checkMaxArr(arr_1, arr_2) {
+        var arr_1_parsed = convertToIntArray(arr_1);
+        var arr_2_parsed = convertToIntArray(arr_2);
+        var max = Math.max(...arr_1_parsed);
+        var max2 = Math.max(...arr_2_parsed);
+        if (max > max2) {
+            return arr_1_parsed;
+        } else {
+            return arr_2_parsed;
+        }
     }
 
     function* yLabel (data) {
@@ -40,7 +61,7 @@ export default function Info({ navigation }) {
         yield* labels;
     }
 
-    const yLabelIterator = yLabel(convertToIntArray(data_1));
+    const yLabelIterator = yLabel(checkMaxArr(data_1, data_2));
 
     let deviceData = [];
     Object.keys(device).forEach(x => {
@@ -87,6 +108,11 @@ export default function Info({ navigation }) {
                     datasets: [
                         {
                             data: data_1,
+                            strokeWidth: 4,
+                            color: (opacity = 1) => `rgba(255,0,0,${opacity})`,
+                        },
+                        {
+                            data: data_2,
                             strokeWidth: 2,
                             color: (opacity = 1) => `rgba(0,0,255, ${opacity})`,
                         }
@@ -95,30 +121,35 @@ export default function Info({ navigation }) {
                     width={313} // from react-native
                     height={220}
                     formatYLabel={() => yLabelIterator.next().value}
-                    yAxisInterval={1} // optional, defaults to 1
+                    yAxisInterval={10} // optional, defaults to 1
                     chartConfig={{
-                    backgroundColor: "#e26a00",
-                    backgroundGradientFrom: "#fb8c00",
-                    backgroundGradientTo: "#ffa726",
+                    backgroundColor: "#D9AFD9",
+                    backgroundGradientFrom: "#D9AFD9",
+                    backgroundGradientTo: "#97D9E1",
                     decimalPlaces: 0, // optional, defaults to 2dp
-                    color: (opacity = 10) => `rgba(1, 24, 64, ${opacity})`,
-                    labelColor: (opacity = 1) => `rgba(73, 116, 191, ${opacity})`,
+                    color: (opacity = 1) => `rgba(5, 19, 107, ${opacity})`,
+                    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                     style: {
-                        borderRadius: 16,
-                        backgroundColor: "#D9AFD9",
+                        borderRadius: 0
                     },
                     propsForDots: {
-                        r: "6",
-                        strokeWidth: "2",
+                        r: "3",
+                        strokeWidth: "1",
                         stroke: "#ffa726"
                     }
                     }}
                     bezier
                     style={{
                     marginVertical: 8,
-                    borderRadius: 16
+                    borderRadius: 0,
                     }}
                 />
+                <Card.Divider/>
+                <View style={styles.legend}>
+                    <Card.Title>Energy in kWh</Card.Title>  
+                    <View style={styles.legend_item1}></View><Text style={styles.legend_text}>Average</Text>
+                    <View style={styles.legend_item2}></View><Text style={styles.legend_text}>Current</Text>
+                </View>
             </Card>
             <View>
                 <FlatList
@@ -180,6 +211,20 @@ const styles = StyleSheet.create({
         color: "white",
         fontWeight: "bold",
         textAlign: "center"
+    },
+    legend: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    legend_item1: {
+        width: 20,
+        height: 10,
+        backgroundColor: 'red',
+    },
+    legend_item2: {
+        width: 20,
+        height: 10,
+        backgroundColor: 'blue',
     },
 })
 

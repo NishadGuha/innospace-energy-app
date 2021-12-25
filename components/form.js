@@ -15,8 +15,6 @@ export default function form() {
       
     const onSubmit = data => console.log(data);
 
-
-
     return (
         <LinearGradient
             colors={['#ff4b1f', '#1fddff']}
