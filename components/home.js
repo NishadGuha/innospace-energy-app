@@ -27,6 +27,11 @@ export default function Home({ navigation}) {
         navigation.navigate('News')
     }
 
+    const pressHandlerUsageLog = () => {
+        console.log('Usage Log')
+        navigation.navigate('Form')
+    }
+
     const data_1 = [
         Math.random() * 100,
         Math.random() * 100,
@@ -170,8 +175,12 @@ export default function Home({ navigation}) {
                 </TouchableOpacity>
             </View>
             <View style={styles.bottomButton}>
-                <TouchableOpacity onPress={pressHandlerSettings}>
-                    <Button title="Log usage"/>
+                <TouchableOpacity onPress={pressHandlerUsageLog}>
+                <FontAwesome
+                    name={"edit"}
+                    size={30}
+                    color="#000000" 
+                />
                 </TouchableOpacity>
             </View>
         </View>
@@ -216,11 +225,13 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     bottomButton: {
-        width: '100%',
+        backgroundColor: '#fff',
+        height: 60,
+        width: 60,
         justifyContent: 'center', 
         alignItems: 'center',
         textAlign: 'center',
-        borderRadius: 50,
+        borderRadius: 10,
     },
     image: {
         width: 100,

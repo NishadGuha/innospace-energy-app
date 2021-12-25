@@ -10,8 +10,6 @@ export default function Info({ navigation }) {
 
     const device = deviceList.find(x => x.id == navigation.state.params.device);
 
-    const [modalVisible, setModalVisible] = useState(false);
-
     const data_1 = [
         Math.random() * 100,
         Math.random() * 100,
@@ -79,26 +77,6 @@ export default function Info({ navigation }) {
             end={{x: 1, y: 1}}
             style={styles.gradient}
         >
-        {/* <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-                setModalVisible(!modalVisible);
-            }}
-        >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Appliance Upgrade Requested!</Text>
-                    <TouchableOpacity
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={() => setModalVisible(!modalVisible)}
-                    >
-                        <Text style={styles.textStyle}>Ok</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </Modal> */}
         <View style={styles.container}>
             <Card style={{flex: 1, width: 100}}>
                 <Card.Title>Usage in the last six months</Card.Title>
@@ -148,7 +126,7 @@ export default function Info({ navigation }) {
                     renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
                 />
             </View>
-            <Button style={styles.button} onPress={triggerModal} title="Request appliance upgrade"/>
+            <Button style={styles.button} onPress={() => { alert("Appliance Upgrade Requested!")}} title="Request appliance upgrade"/>
         </View>
         </LinearGradient>         
     )
@@ -185,22 +163,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 22
     },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-        zIndex: 100
-    },
     buttonOpen: {
         borderRadius: 10,
         textAlign: 'center',
@@ -217,10 +179,6 @@ const styles = StyleSheet.create({
     textStyle: {
         color: "white",
         fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
         textAlign: "center"
     },
 })

@@ -6,6 +6,7 @@ import Devices from '../components/devices';
 import Info from '../components/info';
 import Settings from '../components/settings';
 import News from '../components/news';
+import Form from '../components/form';
 
 const screens = {
     Home: {
@@ -22,7 +23,10 @@ const screens = {
     },
     News: {
         screen: News,
-    }
+    },
+    Form: {
+        screen: Form,
+    },
 }
 
 const options = {
