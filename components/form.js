@@ -27,7 +27,7 @@ export default function App() {
             name="house"
             defaultValue=""
             control={control}
-            render={({ onChange, value }) => (
+            render={({ field: { onChange, value } }) => (
                 <Input
                     onChangeText={(text) => onChange(text)}
                     value={value}
@@ -39,7 +39,7 @@ export default function App() {
             name="device"
             defaultValue=""
             control={control}
-            render={({ onChange, value }) => (
+            render={({ field: { onChange, value } }) => (
                 <Input
                     onChangeText={(text) => onChange(text)}
                     value={value}
@@ -51,7 +51,7 @@ export default function App() {
             name="duration"
             defaultValue=""
             control={control}
-            render={({ onChange, value }) => (
+            render={({ field: { onChange, value } }) => (
                 <Input
                     onChangeText={(text) => onChange(text)}
                     value={value}
