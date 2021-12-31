@@ -13,7 +13,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-export default function Home({ navigation}) {
+export default function Home({ navigation }) {
 
     const pressHandlerDevices = () => {
         navigation.navigate('Devices')
