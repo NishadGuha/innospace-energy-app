@@ -4,7 +4,7 @@ import { t, color } from 'react-native-tailwindcss';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
-import cors from 'cors';
+import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message";
 
 import Input from './input';
 import Button from './button';
@@ -51,9 +51,17 @@ export default function Form({ navigation }) {
     })
     .then(function (response) {
         console.log(response);
+        showMessage({
+            message: "Usage log successfully created!",
+            type: "success",
+        });
     })
     .catch(function (error) {
         console.log(error);
+        showMessage({
+            message: "Error creating usage log!",
+            type: "error",
+        });
     });
   };
 
@@ -117,6 +125,7 @@ export default function Form({ navigation }) {
             )}
         />
         <Button onPress={handleSubmit(onSubmit)} label="Submit" />
+        <FlashMessage position="top" />
     </View>
     </LinearGradient>
   );
