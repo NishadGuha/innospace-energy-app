@@ -7,6 +7,7 @@ import Info from '../components/info';
 import Settings from '../components/settings';
 import News from '../components/news';
 import Form from '../components/form';
+import reportForm from '../components/reportForm';
 
 const screens = {
     Home: {
@@ -27,6 +28,9 @@ const screens = {
     Log_Usage: {
         screen: Form,
     },
+    Report_Form: {
+        screen: reportForm,
+    }
 }
 
 const options = {

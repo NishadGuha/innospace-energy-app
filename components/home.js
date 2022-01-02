@@ -98,6 +98,11 @@ export default function Home({ navigation }) {
                 resizeMode="cover"
                 source={{ uri: "https://images.assetsdelivery.com/compings_v2/amin268/amin2681807/amin268180700301.jpg" }}
             />
+            <Card style={styles.card}>
+            <Card.Title>Welcome</Card.Title>
+            <Card.Divider/>
+            <Text style={styles.welcomeText}>Here you see an overview of your past usage. Use the menus to access specific device information and other settings.</Text>
+            </Card>
             <Card style={{flex: 1, width: 100, borderRadius: 10}}>
             <Card.Title>Overall Energy Usage in the last six months</Card.Title>
             <Card.Divider/>
@@ -196,6 +201,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontFamily: 'TrebuchetMS-Bold',
     },
+    welcomeText: {
+        fontSize: 12,
+        color: '#000',
+        textAlign: 'center',
+        marginTop: 10,
+        fontFamily: 'TrebuchetMS-Bold',
+    },
     button: {
         backgroundColor: '#fff',
         height: 60,
@@ -233,8 +245,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     image: {
-        width: 100,
-        height: 100,
+        width: 40,
+        height: 40,
         borderRadius: 10,
         justifyContent: 'center', 
         alignItems: 'center',

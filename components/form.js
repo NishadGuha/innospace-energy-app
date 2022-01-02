@@ -145,5 +145,5 @@ export default function Form({ navigation }) {
 const styles = {
   container: [t.flex1, t.justifyCenter, t.itemsCenter, t.p6, t.bgGray200],
   switch: [t.mB4, t.selfStart, t.flexRow, t.itemsCenter],
-  switchText: [t.textBase, t.mR3, t.textGray800]
+  switchText: [t.textBase, t.mR3, t.textGray800],
 };

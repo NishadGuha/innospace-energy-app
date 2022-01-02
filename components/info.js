@@ -4,6 +4,7 @@ import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import deviceList from '../consts/deviceList'
 import { LineChart } from "react-native-chart-kit";
 import { LinearGradient } from 'expo-linear-gradient';
+import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message";
 
 
 export default function Info({ navigation }) {
@@ -63,13 +64,15 @@ export default function Info({ navigation }) {
 
     const yLabelIterator = yLabel(checkMaxArr(data_1, data_2));
 
+    const handleNotify = () => {
+        showMessage({
+            message: "Appliance upgrade notified!",
+            type: "success",
+        });
+    }
+
     let deviceData = [];
     Object.keys(device).forEach(x => {
-        if (x == 'name') {
-            deviceData.push({
-                key: `${device[x]}`,
-            })
-        }
         if (x != 'id' && x != 'avatar' && x != 'name') {
             if (x == 'maxPower') {
                 deviceData.push({
@@ -154,10 +157,13 @@ export default function Info({ navigation }) {
             <View>
                 <FlatList
                     data={deviceData}
-                    renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+                    renderItem={({item}) => <Card style={styles.card}>
+                                            <Card.Title>{item.key}</Card.Title>
+                                            </Card>}
                 />
             </View>
-            <Button style={styles.button} onPress={() => { alert("Appliance Upgrade Requested!")}} title="Request appliance upgrade"/>
+            <Button style={styles.button} onPress={handleNotify} title="Notify appliance upgrade"/>
+            <FlashMessage position="top" />
         </View>
         </LinearGradient>         
     )
@@ -225,6 +231,17 @@ const styles = StyleSheet.create({
         width: 20,
         height: 10,
         backgroundColor: 'blue',
+    },
+    card: {
+        padding: 10,
+        backgroundColor: 'white',
+        borderWidth:0,
+        marginBottom:10,
+        marginLeft:10,
+        marginRight:10,
+        borderColor:'#808080',
+        marginTop:50,
+        elevation: 10,
     },
 })
 
