@@ -39,6 +39,26 @@ const devices = [
         costPerHour: 0.15,
         avatar: 'https://rukminim1.flixcart.com/image/416/416/induction-cook-top/9/p/d/prestige-pic-6-0-v2-original-imae5e6tczuwb6ey.jpeg?q=70'
     },
+    {
+        id: 'e553290f-29d5-4055-bc05-2199d658b40e',
+        name: 'AirFryer',
+        maxPower: 2500,
+        minPower: 0,
+        maxTime: 45,
+        minTime: 0,    
+        costPerHour: 0.35,
+        avatar: 'https://m.media-amazon.com/images/I/61TG1L3DV1L._AC_SX466_.jpg'
+    },
+    {
+        id: 'eead085c-8206-4c05-b86c-d30768681ca7',
+        name: 'Oven',
+        maxPower: 2200,
+        minPower: 0,
+        maxTime: 50,
+        minTime: 0,
+        costPerHour: 0.39,
+        avatar: 'https://m.media-amazon.com/images/I/618O0ywM1SL._SL1000_.jpg'
+    },
 ]
 
 export default devices;

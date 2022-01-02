@@ -51,10 +51,21 @@ export default function Form({ navigation }) {
     })
     .then(function (response) {
         console.log(response);
-        showMessage({
-            message: "Usage log successfully created!",
-            type: "success",
-        });
+        const rand = Math.floor(Math.random() * 10);
+        if (rand > 4) {
+            showMessage({
+                message: "Usage log successfully created!",
+                description: `Good going! You saved € ${(Math.random()).toFixed(2)} by using your device now!`,
+                type: "success",
+            });
+        } else {
+            showMessage({
+                message: "Usage log successfully created!",
+                description: `You used your device for ${data.duration} minutes, but you didn't save any money!`,
+                type: "default",
+            });
+        }
+        
     })
     .catch(function (error) {
         console.log(error);

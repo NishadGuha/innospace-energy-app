@@ -18,11 +18,11 @@ export default function Devices({ navigation}) {
             end={{x: 1, y: 1}}
             style={styles.gradient}
         >
-        <View>
+        <View style={styles.container}>
         {
             deviceList.map((u, i) => {
                 return (
-                <Card key={i}>
+                <Card style={styles.cardContainerStyle} key={i}>
                 <Card.Title>{u.name}</Card.Title>
                 <Card.Divider/>
                     <TouchableOpacity onPress={() => pressHandlerDeviceInfo(u.id)}>
@@ -69,5 +69,21 @@ const styles = StyleSheet.create({
     gradient: {
         width: '100%',
         height: '100%',
+    },
+    container: {
+        flex: 1,
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+    },
+    cardContainerStyle: {
+        padding: 10,
+        backgroundColor: 'white',
+        borderWidth:0,
+        marginBottom:10,
+        marginLeft:10,
+        marginRight:10,
+        borderColor:'#808080',
+        marginTop:50,
+        elevation: 10,
     }
 })
