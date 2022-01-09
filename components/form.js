@@ -52,7 +52,7 @@ export default function Form({ navigation }) {
     .then(function (response) {
         console.log(response);
         const rand = Math.floor(Math.random() * 10);
-        if (rand > 4) {
+        if (rand > 9) {
             showMessage({
                 message: "Usage log successfully created!",
                 description: `Good going! You saved € ${(Math.random()).toFixed(2)} by using your device now!`,
@@ -61,7 +61,7 @@ export default function Form({ navigation }) {
         } else {
             showMessage({
                 message: "Usage log successfully created!",
-                description: `You used your device for ${data.duration} minutes, but you didn't save any money!`,
+                description: `You used your device for ${data.duration} minutes, but you didn't save any money! Try using your device during the day!`,
                 type: "default",
             });
         }
