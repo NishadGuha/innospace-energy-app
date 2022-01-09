@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     image: {
+        marginTop: 5,
         width: 40,
         height: 40,
         borderRadius: 10,
